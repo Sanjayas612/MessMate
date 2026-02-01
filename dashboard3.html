@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Producer Menu Management - MessMate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .meal-card { animation: slideIn 0.4s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .image-preview { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 text-white overflow-x-hidden">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+    <div class="flex justify-between items-center mb-12">
+      <div>
+        <h1 class="text-5xl font-bold gradient-text">MessMate</h1>
+        <p class="text-lg text-indigo-200 mt-2 font-medium">Producer Menu Management</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="window.location.href='/dashboard1'" class="bg-slate-800/50 hover:bg-slate-700/50 px-6 py-3 rounded-xl font-semibold transition-all">Back to Dashboard</button>
+        <button id="logout" class="bg-red-500 hover:bg-red-600 px-8 py-3 rounded-xl font-semibold transition-all">Logout</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+      <section class="lg:col-span-1">
+        <div class="bg-slate-800/30 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/30 shadow-2xl h-full flex flex-col">
+          <h2 class="text-2xl font-bold mb-6 text-indigo-200 flex items-center gap-3"><i class="fas fa-book-open"></i> Meal Library</h2>
+          <div id="mealLibrary" class="space-y-4 overflow-y-auto flex-1 pr-2 custom-scrollbar" style="max-height: 500px;"></div>
+        </div>
+      </section>
+
+      <section class="lg:col-span-2">
+        <div class="bg-slate-800/30 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/30 shadow-2xl">
+          <h2 id="formTitle" class="text-3xl font-bold mb-8 text-indigo-200 flex items-center gap-3"><i class="fas fa-plus-circle"></i> Add New Meal</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div><label class="block text-sm font-semibold text-slate-300 mb-2">Meal Name *</label><input type="text" id="name" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white"></div>
+            <div><label class="block text-sm font-semibold text-slate-300 mb-2">Price *</label><input type="number" id="price" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white"></div>
+            <div class="md:col-span-2"><label class="block text-sm font-semibold text-slate-300 mb-2">Description</label><textarea id="description" rows="3" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white"></textarea></div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-semibold text-slate-300 mb-2">Meal Image</label>
+              <input type="file" id="image" accept="image/*" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white">
+              <div id="imagePreview" class="mt-4 hidden"><img id="previewImg" class="image-preview border-2 border-slate-600"></div>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-8">
+            <button onclick="saveMeal()" id="saveBtn" class="bg-emerald-500 px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105">Add Meal</button>
+            <button onclick="saveToLibrary()" class="bg-indigo-600 px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105">Save to Library</button>
+            <button onclick="cancelEdit()" id="cancelBtn" style="display:none;" class="bg-slate-600 px-8 py-3 rounded-xl font-semibold transition-all">Cancel</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-indigo-200 flex items-center gap-3"><i class="fas fa-list"></i> Existing Meals</h2>
+      <div id="meals" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+  </div>
+  <script src="script3.js"></script>
+</body>
+</html>
